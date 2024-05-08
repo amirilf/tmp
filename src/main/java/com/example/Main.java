@@ -40,6 +40,8 @@ public class Main {
         double balance1 = sc.nextDouble();
         double balance2 = sc.nextDouble();
 
+        sc.close();
+
         Passenger p1 = new Passenger(name1, phone1, email1, balance1);
         Passenger p2 = new Passenger(name2, phone2, email2, balance2);
         Passenger p3 = new Passenger("ali", "9301112233", "abc@gmail.com", 2000.5);
