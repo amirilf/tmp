@@ -1,8 +1,8 @@
 package com.example.airport;
 
-import exception.invalid.InvalidEmailAddress;
-import exception.invalid.InvalidInventory;
-import exception.invalid.InvalidPhoneNumber;
+import com.example.exception.invalid.InvalidEmailAddress;
+import com.example.exception.invalid.InvalidInventory;
+import com.example.exception.invalid.InvalidPhoneNumber;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,10 +14,11 @@ public class Passenger {
     private String fullName;
     private String phoneNumber;
     private String emailAddress;
-    private double balance ;
+    private double balance;
     private List<Flight> flights;
 
-    public Passenger(String fullName, String phoneNumber, String emailAddress, double balance) throws InvalidPhoneNumber,InvalidEmailAddress,InvalidInventory {
+    public Passenger(String fullName, String phoneNumber, String emailAddress, double balance)
+            throws InvalidPhoneNumber, InvalidEmailAddress, InvalidInventory {
         this.fullName = fullName;
         checkPhone(phoneNumber);
         checkEmail(emailAddress);
@@ -28,46 +29,41 @@ public class Passenger {
     private void checkEmail(String email) throws InvalidEmailAddress {
         Pattern pattern = Pattern.compile("^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$");
         Matcher matcher = pattern.matcher(email);
-        if (matcher.find()==false)
-        {
+        if (matcher.find() == false) {
             throw new InvalidEmailAddress();
-        }
-        else
+        } else
             setEmailAddress(email);
     }
 
     private void checkPhone(String phone) throws InvalidPhoneNumber {
         Pattern pattern1 = Pattern.compile("^98\\d{10}$");
         Matcher matcher1 = pattern1.matcher(phone);
-        if (matcher1.find()==false)
-        {
+        if (matcher1.find() == false) {
             throw new InvalidPhoneNumber();
-        }
-        else
+        } else
             setPhoneNumber(phone);
     }
 
     private void checkInitialBalance(double balance) throws InvalidInventory {
-        if (balance<0)
-        {
+        if (balance < 0) {
             throw new InvalidInventory();
-        }
-        else
+        } else
             setBalance(balance);
     }
 
     public void reserveFlight(Flight flight) {
-        //Exceptions!!!!
-        // تداخل ساعت - عدم موجودی کافی - تکمیل ظرفیت پرواز - یکسان بودن مبدا پرواز قبلی با مقصد پرواز جدید
-        //........
+        // Exceptions!!!!
+        // تداخل ساعت - عدم موجودی کافی - تکمیل ظرفیت پرواز - یکسان بودن مبدا پرواز قبلی
+        // با مقصد پرواز جدید
+        // ........
     }
 
-    public String showPassengerFlights(){
+    public String showPassengerFlights() {
         StringBuilder flightsOfPassenger = new StringBuilder();
 
-        for (Flight flight :flights) {
+        for (Flight flight : flights) {
 
-            flightsOfPassenger.append(flight.toString()+"_");
+            flightsOfPassenger.append(flight.toString() + "_");
         }
 
         return flightsOfPassenger.toString();
