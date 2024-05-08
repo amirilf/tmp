@@ -7,12 +7,15 @@ import java.util.Scanner;
 
 import com.example.airport.Flight;
 import com.example.airport.Passenger;
+import com.example.exception.OriginDestinationInterference;
+import com.example.exception.TimeInterference;
 import com.example.exception.invalid.InvalidEmailAddress;
 import com.example.exception.invalid.InvalidInventory;
 import com.example.exception.invalid.InvalidPhoneNumber;
 
 public class Main {
-    public static void main(String[] args) throws InvalidPhoneNumber, InvalidEmailAddress, InvalidInventory {
+    public static void main(String[] args) throws InvalidPhoneNumber, InvalidEmailAddress, InvalidInventory,
+            OriginDestinationInterference, TimeInterference {
         Scanner sc = new Scanner(System.in);
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
