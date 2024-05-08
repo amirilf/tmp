@@ -1,5 +1,7 @@
 package com.example.airport;
 
+import com.example.exception.OriginDestinationInterference;
+import com.example.exception.TimeInterference;
 import com.example.exception.invalid.InvalidEmailAddress;
 import com.example.exception.invalid.InvalidInventory;
 import com.example.exception.invalid.InvalidPhoneNumber;
@@ -51,11 +53,27 @@ public class Passenger {
             setBalance(balance);
     }
 
-    public void reserveFlight(Flight flight) {
-        // Exceptions!!!!
-        // تداخل ساعت - عدم موجودی کافی - تکمیل ظرفیت پرواز - یکسان بودن مبدا پرواز قبلی
-        // با مقصد پرواز جدید
-        // ........
+    public void reserveFlight(Flight flight) throws InvalidInventory, OriginDestinationInterference, TimeInterference {
+        if (flight.getCost() > this.balance) {
+            throw new InvalidInventory();
+        }
+        if (!this.flights.get(this.flights.size() - 1).getDestination().equals(flight.getOrigin())) {
+            throw new OriginDestinationInterference();
+        }
+        if (flight.getPassengers().size() + 1 >= flight.getCapacity()) {
+            throw new IndexOutOfBoundsException("flight capacity is full");
+        }
+        if (this.flights != null && this.flights.size() > 0) {
+            if (this.flights.get(this.flights.size() - 1).getDate().isEqual(flight.getDate())) {
+                if (flight.getTime().isBefore(flights.get(flights.size() - 1).getTime()
+                        .plusMinutes(flights.get(flights.size() - 1).getDuration()).plusHours(2))) {
+                    throw new TimeInterference();
+                }
+            }
+        }
+        this.balance -= flight.getCost();
+        this.flights.add(flight);
+        flight.getPassengers().add(this);
     }
 
     public String showPassengerFlights() {
